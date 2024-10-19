@@ -106,6 +106,8 @@ const Propositions = ({ toDashboard }) => {
                 const lives = allLives.data.slice(-7);
 
                 const fetchSuggestedThemes = async () => {
+                    if (!lives) return;
+
                     const themesPromises = lives.map(async (live) => {
                         try {
                             const response = await axios.get(`${SPRINGBOOT_API_URL}/streams/${live.id}/suggestedThemes`, {
@@ -131,7 +133,7 @@ const Propositions = ({ toDashboard }) => {
                         .filter(topic => topic.length > 0);
                     null;
 
-                    if (topics !== null && topics !== undefined) {
+                    if (topics !== null && topics !== undefined && topics.length > 0) {
                         const response = await axios.post('/api/summarized_topics',
                             { topics },
                             {

@@ -75,7 +75,7 @@ const Stats_Page = () => {
                 try {
                     const long_comments = stats?.opinions.length > 0 ? stats?.opinions : null;
 
-                    if ((long_comments !== null) && (long_comments !== undefined)) {
+                    if ((long_comments !== null) && (long_comments !== undefined) && long_comments.length > 0) {
                         const response = await axios.post('/api/summarized_long_comments',
                             { long_comments },
                             {

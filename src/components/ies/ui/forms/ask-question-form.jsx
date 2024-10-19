@@ -55,18 +55,18 @@ const Ask_Question_Form = ({ showDashboard, liveData }) => {
 
 					// Toast
 					if (alertify) {
-						alertify.success('<strong>This is a success message:</strong> done');
+						alertify.success('<strong>Opération réussie :</strong> l\'action a été effectuée avec succès.');
 					}
 					location.reload();
 				} catch (error) {
 					if (error.response && error.response.status === 409) {
 						if (alertify) {
-							alertify.error('<strong>This is an error message:</strong> You have already asked');
+							alertify.error('<strong>Ceci est un message d\'erreur :</strong> Vous avez déjà fait cette demande.');
 						}
 					} else {
 						// Handle other errors
 						if (alertify) {
-							alertify.error(`<strong>This is an error message:</strong> ${error}`);
+							alertify.error(`<strong>Ceci est un message d\'erreur :</strong> ${error}`);
 						}
 					}
 				}
@@ -74,11 +74,11 @@ const Ask_Question_Form = ({ showDashboard, liveData }) => {
 				console.error("Error saving the live: " + error);
 
 				// Toast
-				if (alertify) alertify.error(`<strong>This is an error message:</strong> ${error}`);
+				if (alertify) alertify.error(`<strong>Ceci est un message d\'erreur :</strong> ${error}`);
 			}
 		} catch (error) {
 			// Toast
-			if (alertify) alertify.error('<strong>This is an error message:</strong> bad form');
+			if (alertify) alertify.error('<strong>Ceci est un message d\'erreur :</strong> mauvais formulaire');
 		}
 	}
 

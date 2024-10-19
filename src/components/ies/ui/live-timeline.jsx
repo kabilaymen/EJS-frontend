@@ -65,40 +65,41 @@ const Live_Timeline = ({ isItForAdmin }) => {
                     });
                 }
                 const data = response.data;
-
-                const currentYearStreams = data.filter(live => {
-                    const year = live.date[0];
-                    return year === currentYear;
-                });
-
-                const groupedByMonth = currentYearStreams.reduce((acc, live) => {
-                    const [year, month, day] = live.date;
-                    const monthName = getMonthName(month, 'fr');
-
-                    if (!acc[monthName]) {
-                        acc[monthName] = [];
-                    }
-                    acc[monthName].push(live);
-
-                    return acc;
-                }, {});
-
-                Object.keys(groupedByMonth).forEach(month => {
-                    groupedByMonth[month].sort((a, b) => {
-                        const [yearA, monthA, dayA] = a.date;
-                        const [yearB, monthB, dayB] = b.date;
-                        return new Date(yearA, monthA - 1, dayA) - new Date(yearB, monthB - 1, dayB);
+                if (data) {
+                    const currentYearStreams = data.filter(live => {
+                        const year = live.date[0];
+                        return year === currentYear;
                     });
-                });
 
-                const sortedGroupedByMonth = {};
-                months.fr.forEach(monthName => {
-                    if (groupedByMonth[monthName]) {
-                        sortedGroupedByMonth[monthName] = groupedByMonth[monthName];
-                    }
-                });
+                    const groupedByMonth = currentYearStreams.reduce((acc, live) => {
+                        const [year, month, day] = live.date;
+                        const monthName = getMonthName(month, 'fr');
 
-                setLives(groupedByMonth);
+                        if (!acc[monthName]) {
+                            acc[monthName] = [];
+                        }
+                        acc[monthName].push(live);
+
+                        return acc;
+                    }, {});
+
+                    Object.keys(groupedByMonth).forEach(month => {
+                        groupedByMonth[month].sort((a, b) => {
+                            const [yearA, monthA, dayA] = a.date;
+                            const [yearB, monthB, dayB] = b.date;
+                            return new Date(yearA, monthA - 1, dayA) - new Date(yearB, monthB - 1, dayB);
+                        });
+                    });
+
+                    const sortedGroupedByMonth = {};
+                    months.fr.forEach(monthName => {
+                        if (groupedByMonth[monthName]) {
+                            sortedGroupedByMonth[monthName] = groupedByMonth[monthName];
+                        }
+                    });
+
+                    setLives(sortedGroupedByMonth);
+                }
                 setLivesLoaded(true);
             } catch (error) {
                 console.error('Error fetching data:', error);

@@ -50,7 +50,7 @@ const Professional_Dashboard = () => {
         try {
             const questions = LiveSelected.questions.length > 0 ? LiveSelected.questions : null;
 
-            if ((questions !== null) && (questions !== undefined)) {
+            if ((questions !== null) && (questions !== undefined) && questions.length > 0) {
                 const response = await axios.post('/api/summarized_questions',
                     { questions },
                     {
@@ -61,7 +61,7 @@ const Professional_Dashboard = () => {
                     }
                 );
 
-                const responseData = response.data.summary.replace(/```json|```/g, '').split(" - ");
+                const responseData = JSON.parse(response.data.summary.replace(/```json|```/g, ''));
                 setquestionreceive(responseData)
             }
         } catch (error) {
@@ -203,8 +203,8 @@ const Professional_Dashboard = () => {
                                         <div className="form-heading">
                                             <h4 className="mb-4">Questions des jeunes (résumés par l&apos;IA e-ESJ)</h4>
                                             <ul>
-                                                {questionreceive.map(question => (
-                                                    <><li key={question}>{question}</li><br /></>
+                                                {questionreceive.map((question, index) => (
+                                                    <li key={index}>{question}</li>
                                                 ))}
                                             </ul>
                                         </div>

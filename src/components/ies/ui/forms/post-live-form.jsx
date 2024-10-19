@@ -109,7 +109,7 @@ const Post_Live_Form = ({ showDashboard }) => {
 
     const handleErrors = (error) => {
         console.error("Error: " + error);
-        if (alertify) alertify.error('<strong>This is an error message:</strong> ' + error.message);
+        if (alertify) alertify.error('<strong>Ceci est un message d\'erreur :</strong> ' + error.message);
     };
 
     const save = async (event) => {
@@ -141,7 +141,7 @@ const Post_Live_Form = ({ showDashboard }) => {
 
             await postFeedback(token, idJeune, lastLive, feedback);
 
-            if (alertify) alertify.success('<strong>This is a success message:</strong> done');
+            if (alertify) alertify.success('<strong>Opération réussie :</strong> l\'action a été effectuée avec succès.');
         } catch (error) {
             handleErrors(error);
         }

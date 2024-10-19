@@ -20,13 +20,10 @@ const questions_summarizer_prompt = `
         What are the most effective treatments for anxiety ? - ¿Cuáles son las mejores prácticas para manejar el estrés ? - Quels sont les symptômes de la dépression et comment les traiter ? - Wie kann ich meine Gesundheit am besten pflegen ?
 
         4. Example Output:
-            1. Quels sont les traitements les plus efficaces pour l'anxiété ?
-            2. Quelles sont les meilleures pratiques pour gérer le stress ?
-            3. Quels sont les symptômes de la dépression et comment peuvent - ils être traités ?
-            4. Comment puis - je maintenir au mieux ma santé mentale ?
+            ["Quels sont les traitements les plus efficaces pour l'anxiété ?", "Quelles sont les meilleures pratiques pour gérer le stress ?", "Quels sont les symptômes de la dépression et comment peuvent - ils être traités ?", "Comment puis - je maintenir au mieux ma santé mentale ?"]
 
         5. Question Formatting:
-            "{INDEX}. {QUESTION}? - {INDEX}. {QUESTION}? - {INDEX}. {QUESTION}? - ..."
+            ["{QUESTION}?", "{QUESTION}?", "{QUESTION}?", ...]
 
         Additional Notes:
         - Ensure the summarized questions are representative of the diverse set of original queries and are relevant for a doctor to address.
@@ -55,7 +52,7 @@ export async function POST(req) {
             return NextResponse.json({ error: 'Invalid or empty questions array' }, { status: 400 });
         }
 
-        const input = questions.join(" - ");
+        const input = questions.map(q => q.contenu).join(" - ");
         const summary = await run(questions_summarizer_prompt, input);
 
         return NextResponse.json({ summary });

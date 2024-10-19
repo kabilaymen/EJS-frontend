@@ -152,16 +152,16 @@ const Live_Planification_Form = ({ toDashboard }) => {
                 });
 
                 // Toast
-                if (alertify) alertify.success('<strong>This is a success message:</strong> done');
+                if (alertify) alertify.success('<strong>Opération réussie :</strong> l\'action a été effectuée avec succès.');
             } catch (error) {
                 console.error("Error saving the live: " + error);
 
                 // Toast
-                if (alertify) alertify.error('<strong>This is an error message:</strong> request related');
+                if (alertify) alertify.error('<strong>Ceci est un message d\'erreur :</strong> relatif à la requête');
             }
         } catch (error) {
             // Toast
-            if (alertify) alertify.error('<strong>This is an error message:</strong> bad form');
+            if (alertify) alertify.error('<strong>Ceci est un message d\'erreur :</strong> mauvais formulaire');
         }
     }
 
